@@ -14,6 +14,7 @@ struct IconButton: View {
     var icon: String
     var isSelected: Bool
     var onSelect: () -> Void
+    var onLongPress: (() -> Void)? = nil
 
     var body: some View {
         Button(action: {
@@ -40,5 +41,11 @@ struct IconButton: View {
         }
         .buttonStyle(.plain)
         .cornerRadius(9)
+        .simultaneousGesture(
+            LongPressGesture(minimumDuration: 0.5)
+                .onEnded { _ in
+                    onLongPress?()
+                }
+        )
     }
 }

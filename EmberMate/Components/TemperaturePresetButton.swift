@@ -13,6 +13,7 @@ struct TemperaturePresetButton: View {
     var temperatureUnit: TemperatureUnit
     var isSelected: Bool
     var onSelect: (Double) -> Void
+    var onLongPress: ((Double) -> Void)? = nil
 
     var body: some View {
         IconButton(
@@ -22,6 +23,9 @@ struct TemperaturePresetButton: View {
             isSelected: isSelected,
             onSelect: {
                 onSelect(preset.temperature)
+            },
+            onLongPress: {
+                onLongPress?(preset.temperature)
             }
         )
     }

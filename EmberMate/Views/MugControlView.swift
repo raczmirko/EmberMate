@@ -70,6 +70,17 @@ struct MugControlView: View {
                         onSelect: {
                             appState.selectedPreset = preset
                             emberMug.setTargetTemp(temp: $0)
+                        },
+                        onLongPress: { _ in
+                            if let index = appState.presets.firstIndex(where: { $0.id == preset.id }) {
+                                let updatedPreset = Preset(
+                                    icon: appState.presets[index].icon,
+                                    name: appState.presets[index].name,
+                                    temperature: emberMug.targetTemp
+                                )
+                                updatedPreset.id = appState.presets[index].id
+                                appState.presets[index] = updatedPreset
+                            }
                         }
                     )
                 }
